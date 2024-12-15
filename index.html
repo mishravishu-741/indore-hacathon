@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour & Travel and Location Validation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <style>
+        /* General Reset */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #222;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            color: #4CAF50;
+        }
+
+        /* Neon Box Effect for Validation Section */
+        .container {
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            margin: 50px auto;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 20px;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff, #ff00ff, #ffff00, #00ffff);
+            background-size: 400% 400%;
+            animation: animate-border 6s linear infinite;
+            z-index: -1;
+        }
+
+        .container::after {
+            content: "";
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 15px;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: -1;
+        }
+
+        @keyframes animate-border {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #fff;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background-color: #222;
+            color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .valid {
+            color: green;
+        }
+
+        .invalid {
+            color: red;
+        }
+
+        /* Travel & Tour Section */
+        .home {
+            height: 100vh;
+            background: url('images/home1.jpg') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .home .content {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 50px;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+
+        .home .content h3 {
+            font-size: 48px;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .home .content p {
+            color: #fff;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Adventure Section */
+        .category {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .category h1 {
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+
+        .category .box-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .category .box {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .category .box img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .category .box h3 {
+            margin: 15px 0;
+            color: #fff;
+        }
+
+        .category .box p {
+            color: #ccc;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <a href="#" class="logo"><i class="fas fa-hiking"></i> Geodatacipher</a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#category">Adventures</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="content">
+            <span>Never Stop</span>
+            <h3>Exploring</h3>
+            <p>Geo data provide safety of you and your pnr and gather all information regarding u</p>
+            <a href="#category" class="btn">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Adventure Section -->
+    <section class="category" id="category">
+        <h1>Adventure Idea!</h1>
+        <div class="box-container">
+            <div class="box">
+                <img src="images/category-1.jpg" alt="Bungee Jumping">
+                <h3>Geo data</h3>
+                <p>It combine ur phone nad pnr number to access data</p>
+            </div>
+            <div class="box">
+                <img src="images/category-2.jpg" alt="Zip Lines">
+                <h3>longitude and lattitude</h3>
+                <p>when we connect with block chain it access our location and give data.</p>
+            </div>
+            <div class="box">
+                <img src="https://th.bing.com/th/id/OIP.WmhFwtv2tzLovWJCkoa_qgHaF6?rs=1&pid=ImgDetMain" alt="Canoeing">
+                <h3>Mainly for passenger</h3>
+                <p>When passenger did not take train and our site make good impact on it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Validation Section -->
+    <div class="container">
+        <h1>Verifying Availability of Person</h1>
+        <div class="form-group">
+            <label for="phone">Enter Phone Number:</label>
+            <input type="text" id="phone" placeholder="Phone Number">
+        </div>
+
+        <div class="form-group">
+            <label for="pnr">Enter PNR Number:</label>
+            <input type="text" id="pnr" placeholder="PNR Number">
+        </div>
+
+        <button id="validateBtn">Validate</button>
+
+        <div id="result">
+            <p>Result will appear here.</p>
+        </div>
+    </div>
+
+    <script>
+        // Geolocation and Validation Logic
+        document.getElementById("validateBtn").addEventListener("click", function () {
+            const phone = document.getElementById("phone").value;
+            const pnr = document.getElementById("pnr").value;
+
+            if (!phone || !pnr) {
+                alert("Please enter both phone number and PNR.");
+                return;
+            }
+
+            // Mock geolocation for the phone number
+            getGeoLocation().then(location => {
+                const phoneLocation = location;
+
+                // Simulating the PNR location
+                const pnrLocation = getPnrLocation(pnr);
+
+                if (phoneLocation.lat === pnrLocation.lat && phoneLocation.lon === pnrLocation.lon) {
+                    displayResult("Valid person", "valid");
+                } else {
+                    displayResult("Invalid person", "invalid");
+                }
+            }).catch(error => {
+                displayResult("Unable to retrieve geolocation. Please enable location access.", "invalid");
+            });
+        });
+
+        function getGeoLocation() {
+            return new Promise((resolve, reject) => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        resolve({
+                            lat: position.coords.latitude,
+                            lon: position.coords.longitude
+                        });
+                    }, () => {
+                        reject("Geolocation not available");
+                    });
+                } else {
+                    reject("Geolocation not supported");
+                }
+            });
+        }
+
+        function getPnrLocation(pnr) {
+            if (pnr === '123456') {
+                return { lat: 28.6139, lon: 77.2090 }; // Mock PNR location in Delhi
+            } else {
+                return { lat: 19.0760, lon: 72.8777 }; // Mock PNR location in Mumbai
+            }
+        }
+
+        function displayResult(message, resultClass) {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = <p class="${resultClass}">${message}</p>;
+        }
+    </script>
+</body>
+</html>
